@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author chuki
  */
 public class loginChat extends HttpServlet {
-        String usuario_valido = "chuki";
+        String usuario_valido = "benzo";
         String contrasena_valido="1234";
         
     /**
