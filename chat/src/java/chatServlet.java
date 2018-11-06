@@ -29,15 +29,23 @@ public class chatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        String mensaje = request.getParameter("message");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet chatServlet</title>");            
+            out.println("<title>chatServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet chatServlet at " + request.getContextPath() + "</h1>");
+            out.println(mensaje);
+            out.println("<form name='loginForm' method='post' action='chatServlet'>");
+            out.println("Mensaje<input type='text' name='message'/><br/>");
+
+            out.println("<input type='submit' value='Send'/>");
+            out.println("</form>");
+            
             out.println("</body>");
             out.println("</html>");
         }
