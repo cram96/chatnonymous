@@ -57,7 +57,7 @@ public class loginChat extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1> Error al autentificarse</h1>");
-            out.println("<a href=\"http://localhost:8080/Chat\">Volver</a><br/>");
+            out.println("<a href=\"http://localhost:8080/chat\">Volver</a><br/>");
             out.println("</body>");
             out.println("</html>");
         
