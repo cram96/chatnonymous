@@ -6,6 +6,9 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +32,11 @@ public class chatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String mensaje = request.getParameter("message");
+        getServletContext().setAttribute("mensaje", mensaje);
+        List<Object> e = new ArrayList<Object>();
+        e.add(getServletContext().getAttribute("mensaje"));
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -39,13 +45,19 @@ public class chatServlet extends HttpServlet {
             out.println("<title>chatServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println(mensaje);
+            out.println("<h1>mensajes</h1>");
             out.println("<form name='loginForm' method='post' action='chatServlet'>");
             out.println("Mensaje<input type='text' name='message'/><br/>");
 
             out.println("<input type='submit' value='Send'/>");
             out.println("</form>");
-            
+
+            while (!!e.isEmpty()) {
+
+                String msj = (String) e.;
+                Object value = getServletContext().getAttribute(msj);
+                out.println(value);
+            }
             out.println("</body>");
             out.println("</html>");
         }
