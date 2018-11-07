@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author chuki
  */
 public class chatServlet extends HttpServlet {
-
+ List<Object> e = new ArrayList<Object>();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,11 +32,10 @@ public class chatServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         String mensaje = request.getParameter("message");
-        getServletContext().setAttribute("mensaje", mensaje);
-        List<Object> e = new ArrayList<Object>();
-        e.add(getServletContext().getAttribute("mensaje"));
+        e.add(mensaje);
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -46,20 +45,23 @@ public class chatServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>mensajes</h1>");
-            out.println("<form name='loginForm' method='post' action='chatServlet'>");
+                   out.println("<form name='loginForm' method='post' action='chatServlet'>");
             out.println("Mensaje<input type='text' name='message'/><br/>");
-
+     
             out.println("<input type='submit' value='Send'/>");
             out.println("</form>");
 
-            while (!!e.isEmpty()) {
+        
 
-                String msj = (String) e.;
-                Object value = getServletContext().getAttribute(msj);
-                out.println(value);
+            for (Object msj:e) {
+
+               
+             msj = msj.toString();
+              out.println(msj);
+              out.println("<br>");
             }
-            out.println("</body>");
-            out.println("</html>");
+                   out.println("</body>");
+            out.println("</html>");    
         }
     }
 
