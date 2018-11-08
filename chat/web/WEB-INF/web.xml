@@ -7,7 +7,7 @@
     <servlet-mapping>
         <servlet-name>loginChat</servlet-name>
         <url-pattern>/loginChat</url-pattern>
-    </servlet-mapping> 
+    </servlet-mapping>
     <servlet>
         <servlet-name>chatServlet</servlet-name>
         <servlet-class>chatServlet</servlet-class>

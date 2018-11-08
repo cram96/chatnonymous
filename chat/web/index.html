@@ -11,11 +11,14 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <H1>bienvenido a ChatNonymous, por favor, indica tu usuario y contraseña</H1>
-          <form name="loginForm" method="post" action="loginChat">
-            Username: <input type="text" name="username"/><br/>
-            Password: <input type="password" name="password"/><br/> 
+        <H1>bienvenido a ChatNonymous</H1>
+          <form name="loginForm" method="get" action="loginChat">
+          
             <input type="submit" value="Login"/>
+        </form>
+        <form name="loginForm" method="get" action="loginChat">
+          
+            <input type="submit" value="Registrarse"/>
         </form>
     </body>
 </html>
