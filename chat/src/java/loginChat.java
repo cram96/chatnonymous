@@ -6,18 +6,29 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
  *
  * @author chuki
  */
 public class loginChat extends HttpServlet {
-
+    Connection conn;
     String usuario_valido = "benzo3";
     String contrasena_valido = "1234";
 
@@ -52,16 +63,44 @@ public class loginChat extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("username").equals(usuario_valido) && request.getParameter("password").equals(contrasena_valido)) {
-            response.sendRedirect("http://localhost:8080/chat/chatServlet");
-        } else {
-            response.sendRedirect("http://localhost:8080/chat/loginChat");
+        try {
+            
+            InitialContext initialcontext = new InitialContext();
+              DataSource datasource;
+              datasource = (DataSource) initialcontext.lookup("jdbc/swDatabase");
+              Connection conn = datasource.getConnection();
+              String posible_usuario = request.getParameter("username");
+              String posible_password= request.getParameter("password");
+              String query = "select * from tb_users where email ='"+ posible_usuario + "' and password ='" + posible_password+"';";
+              Statement st;
+              st = conn.createStatement();
+              ResultSet rs = st.executeQuery(query);
+              System.out.println("se ha ejecutado la query");
+              if(rs.next()){
+                  
+              RequestDispatcher rd = getServletContext().getNamedDispatcher("chatServlet");
+              rd.forward(request, response);
+              }
+              else{
+                  RequestDispatcher rd = getServletContext().getNamedDispatcher("loginChat");
+              rd.forward(request, response);
+
+              }
+        } catch (NamingException ex) {
+            Logger.getLogger(loginChat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(loginChat.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
+        
+            
+          
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }
+
 
 }
